@@ -6,7 +6,7 @@ import { Divider } from "@chakra-ui/react";
 
 import Cards from "../components/Cards";
 import Layout from "../components/Layout";
-
+///
 const HomePage = () => {
   return (
     <>
