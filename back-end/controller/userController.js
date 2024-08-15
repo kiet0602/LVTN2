@@ -1,7 +1,7 @@
 import User from "../models/Users.js";
 import bcrypt from "bcryptjs";
 import generateTokenAndSetCookie from "../untils/helpers/generateTokenAndSetCookie.js";
-//////////////////////////////////////
+
 const getAllUsers = async (req, res) => {
   try {
     const users = await User.find();
@@ -111,7 +111,7 @@ const signInUser = async (req, res) => {
     res.status(500).json({ message: "Lỗi server" });
   }
 };
-//////////////////
+
 const logoutUser = async (req, res) => {
   try {
     res.cookie("jwt", "", { maxAge: 1 });

@@ -11,8 +11,6 @@ import { mode } from "@chakra-ui/theme-tools";
 //////
 import { BrowserRouter } from "react-router-dom";
 
-import { ClerkProvider } from "@clerk/clerk-react";
-
 import { RecoilRoot } from "recoil";
 
 import { ToastContainer } from "react-toastify";
@@ -45,21 +43,13 @@ const colors = {
 
 const theme = extendTheme({ config, styles, colors });
 
-const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
-
-if (!PUBLISHABLE_KEY) {
-  throw new Error("Missing Publishable Key");
-}
-
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <RecoilRoot>
       <BrowserRouter>
         <ChakraProvider theme={theme}>
           <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-          <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
-            <App />
-          </ClerkProvider>
+          <App />
         </ChakraProvider>
         <ToastContainer />
       </BrowserRouter>
