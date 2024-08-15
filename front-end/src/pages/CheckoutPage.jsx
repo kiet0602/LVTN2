@@ -22,7 +22,7 @@ import { useState } from "react"; // Import useState
 const CheckoutPage = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const [selectedItem, setSelectedItem] = useState("Dashboard"); // State for selected item
-
+  //
   // Content for each selected item
   const renderContent = () => {
     switch (selectedItem) {
