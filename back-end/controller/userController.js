@@ -1,7 +1,7 @@
 import User from "../models/Users.js";
 import bcrypt from "bcryptjs";
 import generateTokenAndSetCookie from "../untils/helpers/generateTokenAndSetCookie.js";
-
+//////////////////////////////////////
 const getAllUsers = async (req, res) => {
   try {
     const users = await User.find();
