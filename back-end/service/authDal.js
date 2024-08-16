@@ -1,5 +1,4 @@
 import User from "../models/Users.js";
-import generateTokenAndSetCookie from "../untils/helpers/generateTokenAndSetCookie.js";
 
 const googleAuthDal = {
   registerWithGoogle: async (oauthUser) => {

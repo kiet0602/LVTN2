@@ -9,9 +9,8 @@ import CartPage from "./pages/CartPage";
 import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
 import ButtonIconModeColor from "./components/ButtonIconModeColor";
-import Google from "./pages/Google"; // Import Google component
+
 import UserProfile from "./pages/test";
-import Facebook from "./pages/Facebook";
 
 function App() {
   return (
@@ -29,8 +28,6 @@ function App() {
           <Route path="/checkOut" element={<CheckoutPage />} />
           <Route path="/productDetail" element={<ProductDetailPage />} />
           <Route path="/cart" element={<CartPage />} />
-          <Route path="/auth/google" element={<Google />} />
-          <Route path="/auth/facebook" element={<Facebook />} />
 
           <Route path="/test" element={<UserProfile />} />
 
