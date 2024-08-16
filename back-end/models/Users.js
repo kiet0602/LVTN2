@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 const Schema = mongoose.Schema;
-///
+
 const userSchema = new Schema({
   username: {
     type: String,
@@ -8,12 +8,13 @@ const userSchema = new Schema({
   },
   email: {
     type: String,
-    required: true,
-    unique: true,
+    required: false,
+    unique: false, // Email does not need to be unique
   },
   password: {
     type: String,
-    required: true,
+    required: false,
+    default: "", // Default to an empty string
   },
   address: {
     street: {
@@ -31,8 +32,8 @@ const userSchema = new Schema({
   },
   phoneNumber: {
     type: String,
-    required: true,
-    unique: true,
+    required: false,
+    unique: false, // Phone number does not need to be unique
   },
   role: {
     type: String,
