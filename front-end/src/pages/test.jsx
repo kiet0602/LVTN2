@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 const UserProfile = () => {
   const [user, setUser] = useState(null);
@@ -11,7 +12,18 @@ const UserProfile = () => {
     axios
       .get("http://localhost:5000/api/user", { withCredentials: true }) // withCredentials để gửi cookie cùng với yêu cầu
       .then((response) => {
-        setUser(response.data);
+        const userData = response.data;
+        console.log(userData);
+        setUser(userData);
+        let jsonString = JSON.stringify(userData);
+
+        let encodedValue = encodeURIComponent(jsonString);
+        // Lưu thông tin người dùng vào cookie
+        Cookies.set("user", encodedValue, { expires: 7 }); // Lưu thông tin người dùng trong 7 ngày
+        Cookies.set("userId", userData._id, { expires: 7 }); // Lưu thông tin người dùng trong 7 ngày
+
+        // Lưu userId riêng biệt nếu cần
+
         setLoading(false);
       })
       .catch((err) => {

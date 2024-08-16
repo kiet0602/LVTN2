@@ -29,8 +29,7 @@ const googleAuthDal = {
           ? oauthUser.photos[0].value
           : "",
       role: "customer",
-      password: "",
-      phoneNumber: "", // Set to empty string if not available
+      phoneNumber: oauthUser.phoneNumber || "", // Gán giá trị mặc định nếu không có số điện thoại
     };
 
     const user = new User(userData);
@@ -73,8 +72,7 @@ const googleAuthDal = {
           ? oauthUser.photos[0].value
           : "",
       role: "customer",
-      password: "",
-      phoneNumber: "", // Set to empty string if not available
+      phoneNumber: oauthUser.phoneNumber || "", // Gán giá trị mặc định nếu không có số điện thoại
     };
 
     const user = new User(userData);

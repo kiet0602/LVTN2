@@ -2,8 +2,6 @@ import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import googleAuth from "../../service/authDal.js";
 
-import generateTokenAndSetCookie from "../../untils/helpers/generateTokenAndSetCookie.js";
-
 const configLoginWithGoogle = () => {
   passport.use(
     new GoogleStrategy(

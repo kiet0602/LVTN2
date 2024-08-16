@@ -1,11 +1,13 @@
-"use client";
-
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
+
+import useSignInSocical from "../Hook/useCallbackCustom";
 
 import { Button, Center, Stack, Text } from "@chakra-ui/react";
 
 const ButtonSighIn = () => {
+  const { handleGoogleSignIn, handleFacebookSignIn } = useSignInSocical();
+
   return (
     <Center>
       <Stack align={"center"} w={"full"}>
@@ -17,13 +19,23 @@ const ButtonSighIn = () => {
           Đăng nhập
         </Button>
         {/* Facebook */}
-        <Button w={"full"} colorScheme={"facebook"} leftIcon={<FaFacebook />}>
+        <Button
+          onClick={handleFacebookSignIn}
+          w={"full"}
+          colorScheme={"facebook"}
+          leftIcon={<FaFacebook />}
+        >
           <Center>
             <Text>Tiếp tục với Facebook</Text>
           </Center>
         </Button>
         {/* Google */}
-        <Button w={"full"} variant={"outline"} leftIcon={<FcGoogle />}>
+        <Button
+          onClick={handleGoogleSignIn}
+          w={"full"}
+          variant={"outline"}
+          leftIcon={<FcGoogle />}
+        >
           <Center>
             <Text>Tiếp tục với Google</Text>
           </Center>
