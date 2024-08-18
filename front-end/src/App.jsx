@@ -9,8 +9,7 @@ import CartPage from "./pages/CartPage";
 import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
 import ButtonIconModeColor from "./components/ButtonIconModeColor";
-
-import UserProfile from "./pages/test";
+import OAuthCallback from "./pages/OAuthCallback";
 
 function App() {
   return (
@@ -21,6 +20,8 @@ function App() {
       </Box>
       <Box position={"relative"} w={"full"}>
         <Routes>
+          <Route path="/oauth/:token" element={<OAuthCallback />} />
+
           <Route path="/" element={<HomePage />} />
           <Route path="/signIn" element={<SignInPage />} />
           <Route path="/signUp" element={<SignUpPage />} />
@@ -28,8 +29,6 @@ function App() {
           <Route path="/checkOut" element={<CheckoutPage />} />
           <Route path="/productDetail" element={<ProductDetailPage />} />
           <Route path="/cart" element={<CartPage />} />
-
-          <Route path="/test" element={<UserProfile />} />
 
           {/* Route for Google Authentication */}
         </Routes>

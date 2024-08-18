@@ -5,7 +5,7 @@ import useSignInSocical from "../Hook/useCallbackCustom";
 
 import { Button, Center, Stack, Text } from "@chakra-ui/react";
 
-const ButtonSighIn = () => {
+const ButtonSighIn = ({ handleSignIn, isLoading }) => {
   const { handleGoogleSignIn, handleFacebookSignIn } = useSignInSocical();
 
   return (
@@ -15,6 +15,8 @@ const ButtonSighIn = () => {
           bgGradient="linear(to-l, #0ea5e9, #2563eb)"
           variant={"solid"}
           w={"full"}
+          onClick={handleSignIn}
+          isLoading={isLoading}
         >
           Đăng nhập
         </Button>

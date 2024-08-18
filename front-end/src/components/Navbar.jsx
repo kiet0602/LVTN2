@@ -38,7 +38,6 @@ const Navbar = () => {
   const gradientEnd = useColorModeValue("#2563eb", "#0ea5e9");
   // Define hover colors for different modes
   const hoverColor = useColorModeValue("black", "white");
-
   return (
     <Box
       px={4}

@@ -1,5 +1,3 @@
-"use client";
-
 import {
   Box,
   Flex,
@@ -16,6 +14,7 @@ import {
 } from "@chakra-ui/react";
 
 import useNavigateCustom from "../Hook/useNavigateCustom.js";
+import { useState } from "react";
 
 const avatars = [
   {
@@ -50,6 +49,12 @@ const avatars = [
 
 const SighUp = () => {
   const { goToSignIn } = useNavigateCustom();
+
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [phone, setPhone] = useState("");
 
   return (
     <>

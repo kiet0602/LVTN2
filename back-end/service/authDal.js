@@ -6,15 +6,13 @@ const googleAuthDal = {
       email: oauthUser.emails[0].value,
       role: "customer",
     });
-
     if (isUserExists) {
-      return {
-        failure: {
-          status: 400,
-          message: "Người dùng đã được đăng ký.",
-          data: isUserExists,
-        },
+      const failure = {
+        status: 400,
+        message: "User already Registered.",
+        data: isUserExists,
       };
+      return { failure };
     }
 
     const userData = {
@@ -28,18 +26,18 @@ const googleAuthDal = {
           ? oauthUser.photos[0].value
           : "",
       role: "customer",
-      phoneNumber: oauthUser.phoneNumber || "", // Gán giá trị mặc định nếu không có số điện thoại
+      //     phoneNumber: oauthUser.phoneNumber || "", // Gán giá trị mặc định nếu không có số điện thoại
     };
 
     const user = new User(userData);
+
     const newUser = await user.save();
-    return {
-      success: {
-        status: 200,
-        message: "Người dùng đã được đăng ký.",
-        data: newUser,
-      },
+    const success = {
+      status: 200,
+      message: "User Registered.",
+      data: newUser,
     };
+    return { success };
   },
 
   registerWithFacebook: async (oauthUser) => {
@@ -54,13 +52,12 @@ const googleAuthDal = {
     });
 
     if (isUserExists) {
-      return {
-        failure: {
-          status: 400,
-          message: "Người dùng đã được đăng ký.",
-          data: isUserExists,
-        },
+      const failure = {
+        status: 400,
+        message: "User already Registered.",
+        data: isUserExists,
       };
+      return { failure };
     }
 
     const userData = {
@@ -73,16 +70,14 @@ const googleAuthDal = {
       role: "customer",
       phoneNumber: oauthUser.phoneNumber || "", // Gán giá trị mặc định nếu không có số điện thoại
     };
-
     const user = new User(userData);
     const newUser = await user.save();
-    return {
-      success: {
-        status: 200,
-        message: "Người dùng đã được đăng ký.",
-        data: newUser,
-      },
+    const success = {
+      status: 200,
+      message: "User Registered.",
+      data: newUser,
     };
+    return { success };
   },
 };
 

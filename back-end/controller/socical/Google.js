@@ -1,6 +1,7 @@
 import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import googleAuth from "../../service/authDal.js";
+import jwt from "jsonwebtoken";
 
 const configLoginWithGoogle = () => {
   passport.use(
@@ -15,15 +16,21 @@ const configLoginWithGoogle = () => {
         const { failure, success } = await googleAuth.registerWithGoogle(
           profile
         );
-
-        if (failure) {
-          return done(null, failure.data); // Đưa dữ liệu lỗi về phía client
-        }
-
-        if (success) {
-          console.log("Google user registered successfully.", success.data);
-          // Sử dụng generateTokenAndSetCookie trong callback của passport
-          return done(null, success.data);
+        const user = failure || success;
+        if (user) {
+          console.log(
+            failure
+              ? "Google user already exists in DB.."
+              : "Google user registered successfully.",
+            user
+          );
+          const token = jwt.sign(
+            { userInfo: user.data },
+            process.env.JWT_ACCESS_TOKEN,
+            { expiresIn: "1h" }
+          );
+          user.token = token;
+          return done(null, user);
         }
 
         return done(new Error("Unknown error during Google authentication"));
