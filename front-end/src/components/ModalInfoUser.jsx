@@ -14,7 +14,6 @@ import {
   FormControl,
   FormLabel,
   Input,
-  Textarea,
   useColorModeValue,
   Select,
   Image,
@@ -84,7 +83,7 @@ const ModalInfoUser = ({ isOpen, onClose, data }) => {
                           type="text"
                           placeholder="Ahmad"
                           rounded="md"
-                          value={data?.name}
+                          value={data?.username}
                         />
                       </FormControl>
                       <FormControl>
@@ -102,7 +101,7 @@ const ModalInfoUser = ({ isOpen, onClose, data }) => {
                           type="email"
                           placeholder="test@test.com"
                           rounded="md"
-                          value={data.phone}
+                          value={data.phoneNumber}
                         />
                       </FormControl>
                     </Stack>

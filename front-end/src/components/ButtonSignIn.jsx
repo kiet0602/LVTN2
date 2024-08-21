@@ -6,7 +6,11 @@ import useSignInSocical from "../Hook/useCallbackCustom";
 import { Button, Center, Stack, Text } from "@chakra-ui/react";
 
 const ButtonSighIn = ({ handleSignIn, isLoading }) => {
-  const { handleGoogleSignIn, handleFacebookSignIn } = useSignInSocical();
+  const signInGoogle = () => {
+    window.open("http://localhost:5000/auth/google/callback", "self");
+  };
+
+  // const { handleGoogleSignIn, handleFacebookSignIn } = useSignInSocical();
 
   return (
     <Center>
@@ -21,22 +25,17 @@ const ButtonSighIn = ({ handleSignIn, isLoading }) => {
           Đăng nhập
         </Button>
         {/* Facebook */}
-        <Button
-          onClick={handleFacebookSignIn}
-          w={"full"}
-          colorScheme={"facebook"}
-          leftIcon={<FaFacebook />}
-        >
+        <Button w={"full"} colorScheme={"facebook"} leftIcon={<FaFacebook />}>
           <Center>
             <Text>Tiếp tục với Facebook</Text>
           </Center>
         </Button>
         {/* Google */}
         <Button
-          onClick={handleGoogleSignIn}
           w={"full"}
           variant={"outline"}
           leftIcon={<FcGoogle />}
+          onClick={signInGoogle}
         >
           <Center>
             <Text>Tiếp tục với Google</Text>

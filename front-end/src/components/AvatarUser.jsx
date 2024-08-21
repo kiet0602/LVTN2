@@ -11,8 +11,11 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import userAtom from "../Atom/userAtom";
 
 const AvatarUser = () => {
+  const user = useRecoilValue(userAtom);
   return (
     <>
       <Menu isLazy>
@@ -29,15 +32,15 @@ const AvatarUser = () => {
           boxShadow="4px 4px 0"
         >
           <NavLink
-            to={"/profile"}
+            to={`/profile/${user._id}`}
             _hover={{ textDecoration: "none" }}
             isExternal
           >
             <MenuItem>
               <VStack justifyContent="start" alignItems="left">
-                <Text fontWeight="500">Tên của bạn</Text>
+                <Text fontWeight="500">{user.username}</Text>
                 <Text size="sm" color="gray.500" mt="0 !important">
-                  Địa chỉ Email
+                  {user.email}
                 </Text>
               </VStack>
             </MenuItem>

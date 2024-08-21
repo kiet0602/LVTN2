@@ -1,57 +1,57 @@
-import express from "express"; //1
-import dotenv from "dotenv"; //5
-import connectDB from "./db/connectDB.js"; //7
-import userRoutes from "./Routes/userRoutes.js"; //9
-import cookieParser from "cookie-parser"; //11
+import express from "express";
+import dotenv from "dotenv";
+import connectDB from "./db/connectDB.js";
+import userRoutes from "./Routes/userRoutes.js";
+import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
-import session from "express-session";
-import passport from "passport";
 import cors from "cors";
+import passport from "passport";
+import session from "express-session";
+import authSocical from "./Routes/auth.js";
+import "./passport.js";
 
-import google from "./Routes/Google.js";
-import facebook from "./Routes/Facebook.js";
+dotenv.config();
 
-import configLoginWithGoogle from "./controller/socical/Google.js";
-import configLoginWithFacebook from "./controller/socical/Facebook.js";
+const app = express();
+const PORT = process.env.PORT || 5000;
 
-dotenv.config(); //6
-
-const app = express(); //2
-const PORT = process.env.PORT || 5000; //3
-
-connectDB(); //8 - Connect to the database after app initialization
-
-app.use(cors());
-app.use(bodyParser.json({ limit: "50mb" })); // Tăng giới hạn kích thước của JSON //13
-app.use(bodyParser.urlencoded({ limit: "50mb", extended: true })); // 14 Tăng giới hạn kích thước của URL-encoded data
-
-// Middleware để phân tích dữ liệu JSON
-app.use(express.json()); //15
-app.use(express.urlencoded({ extended: true })); //16
-
-// Phân tích cookie
-app.use(cookieParser()); //17
-
-// Sử dụng các routes từ userRoutes
-app.use("/api/users", userRoutes); //10
+connectDB();
 
 app.use(
-  session({
-    secret: "your_secret_key",
-    resave: false,
-    saveUninitialized: true,
+  cors({
+    origin: "http://localhost:4000",
+    methods: "GET,POST,PUT,DELETE",
+    credentials: true,
   })
 );
+
+app.use(bodyParser.json({ limit: "50mb" }));
+app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use(cookieParser());
+
+// Cấu hình session
+app.use(
+  session({
+    secret: "your_secret_key", // Replace with your own secret key
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      secure: false, // Đặt thành true nếu sử dụng HTTPS
+      maxAge: 1000 * 60 * 60 * 24, // Thời gian sống của cookie (24 giờ)
+    },
+  })
+);
+
 app.use(passport.initialize());
 app.use(passport.session());
-configLoginWithGoogle();
-configLoginWithFacebook();
-app.use("/", facebook);
-app.use("/", google);
-//app.use("/", paypal);
 
-// Bắt đầu server
-app.listen(
-  PORT,
-  () => console.log(`Server listening on http://localhost:${PORT}`) //4
+app.use("/api/users", userRoutes);
+app.use("/", authSocical);
+
+app.listen(PORT, () =>
+  console.log(`Server listening on http://localhost:${PORT}`)
 );

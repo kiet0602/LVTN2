@@ -33,7 +33,7 @@ const userSchema = new Schema({
   phoneNumber: {
     type: String,
     required: false,
-    unique: false, // Phone number does not need to be unique
+    unique: false, // Đặt unique thành false
   },
   role: {
     type: String,

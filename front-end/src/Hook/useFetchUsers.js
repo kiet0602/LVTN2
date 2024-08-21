@@ -11,11 +11,11 @@ function useFetchUsers() {
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       try {
         const response = await axios.get(
           `http://localhost:5000/api/users/getUser/${userId}`
         );
-        console.log(response);
         setUser(response.data);
       } catch (err) {
         setError(err.message);
@@ -23,7 +23,6 @@ function useFetchUsers() {
         setLoading(false);
       }
     };
-
     fetchData();
   }, [userId]);
 

@@ -20,19 +20,25 @@ import { AiOutlineClose } from "react-icons/ai";
 import { BiChevronDown } from "react-icons/bi";
 import { FaShoppingCart } from "react-icons/fa";
 
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import { useRecoilValue } from "recoil";
 
 import useNavigateCustom from "../Hook/useNavigateCustom.js";
 import InputSearch from "./InputSearch.jsx";
+import userAtom from "../Atom/userAtom.js";
 
 import AvatarUser from "./AvatarUser";
 
 import imgSenda from "../assets/data/image/Senda/sen-da-chuoi-ngoc-dung.jpg";
 import { navLinks, dropdownLinks } from "../assets/data/datalink/datalink.js";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 
 const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { goToSignIn, goToHome } = useNavigateCustom();
+  const { goToSignIn, goToHome, goToSignUp } = useNavigateCustom();
+
+  const user = useRecoilValue(userAtom);
 
   const gradientStart = useColorModeValue("#0ea5e9", "#2563eb");
   const gradientEnd = useColorModeValue("#2563eb", "#0ea5e9");
@@ -121,43 +127,79 @@ const Navbar = () => {
         </HStack>
         <Flex alignItems="center" gap={4} wrap="nowrap">
           <InputSearch />
-          <AvatarUser />
 
-          <Text
-            fontSize="15px"
-            onClick={goToSignIn}
-            display="inline-block"
-            whiteSpace="nowrap"
-            _hover={{ color: hoverColor }} // Use hover color based on mode
-            bgGradient={`linear(to-l, ${gradientStart}, ${gradientEnd})`} // Gradient based on mode
-            bgClip="text"
-            fontWeight="bold"
-            cursor={"pointer"}
-          >
-            Đăng nhập
-          </Text>
+          {user ? (
+            <Box display="flex" alignItems="center" gap={2}>
+              <AvatarUser />
+              <Link to={`/profile/${user._id}`}>
+                <Text
+                  fontSize="15px"
+                  display="inline-block"
+                  whiteSpace="nowrap"
+                  _hover={{ color: hoverColor }}
+                  bgGradient={`linear(to-l, ${gradientStart}, ${gradientEnd})`}
+                  bgClip="text"
+                  fontWeight="bold"
+                  cursor="pointer"
+                >
+                  {user.username}
+                </Text>
+              </Link>
+            </Box>
+          ) : (
+            <Box display="flex" alignItems="center" gap={2}>
+              <Text
+                fontSize="15px"
+                onClick={goToSignIn}
+                display="inline-block"
+                whiteSpace="nowrap"
+                _hover={{ color: hoverColor }} // Use hover color based on mode
+                bgGradient={`linear(to-l, ${gradientStart}, ${gradientEnd})`} // Gradient based on mode
+                bgClip="text"
+                fontWeight="bold"
+                cursor={"pointer"}
+              >
+                Đăng nhập
+              </Text>
+              /
+              <Text
+                fontSize="15px"
+                onClick={goToSignUp}
+                display="inline-block"
+                whiteSpace="nowrap"
+                _hover={{ color: hoverColor }} // Use hover color based on mode
+                bgGradient={`linear(to-l, ${gradientStart}, ${gradientEnd})`} // Gradient based on mode
+                bgClip="text"
+                fontWeight="bold"
+                cursor={"pointer"}
+              >
+                Đăng kí
+              </Text>
+            </Box>
+          )}
 
           <Box position="relative" display="inline-block">
-            <IconButton
-              icon={<FaShoppingCart />}
-              aria-label="Cart"
-              variant="outline"
-              // Example of updating cart count
-              fontSize="24px"
+            <FontAwesomeIcon
+              icon={faCartShopping}
+              size="lg"
+              style={{ opacity: 0.5 }} // Adjust opacity as needed
             />
-            {/* Badge for displaying cart count */}
-            <Badge
+            <Box
               position="absolute"
-              top="0"
-              right="0"
-              transform="translate(50%, -50%)"
-              colorScheme="red"
+              top="-1"
+              right="-1"
+              backgroundColor="red.500"
+              color="white"
+              fontSize="xs"
               borderRadius="full"
-              fontSize="0.8em"
-              padding="4px"
+              width="16px"
+              height="16px"
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
             >
               0
-            </Badge>
+            </Box>
           </Box>
           <IconButton
             size="md"
