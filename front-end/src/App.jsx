@@ -12,7 +12,7 @@ import ButtonIconModeColor from "./components/ButtonIconModeColor";
 import OAuthCallback from "./pages/OAuthCallback";
 import userAtom from "./Atom/userAtom";
 import { useRecoilValue } from "recoil";
-import Test from "./pages/Text";
+import Test from "./pages/Test";
 
 function App() {
   const user = useRecoilValue(userAtom);
@@ -41,7 +41,6 @@ function App() {
           <Route path="/productDetail" element={<ProductDetailPage />} />
           <Route path="/cart" element={<CartPage />} />
           {/* Route for Google Authentication */}
-
           <Route path="/test" element={<Test />} />
         </Routes>
       </Box>

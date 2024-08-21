@@ -10,7 +10,11 @@ const ButtonSighIn = ({ handleSignIn, isLoading }) => {
     window.open("http://localhost:5000/auth/google/callback", "self");
   };
 
-  // const { handleGoogleSignIn, handleFacebookSignIn } = useSignInSocical();
+  //  const { handleGoogleSignIn, handleFacebookSignIn } = useSignInSocical();
+
+  const handleLogin = () => {
+    window.location.href = "http://localhost:5000/auth/facebook";
+  };
 
   return (
     <Center>
@@ -25,7 +29,12 @@ const ButtonSighIn = ({ handleSignIn, isLoading }) => {
           Đăng nhập
         </Button>
         {/* Facebook */}
-        <Button w={"full"} colorScheme={"facebook"} leftIcon={<FaFacebook />}>
+        <Button
+          w={"full"}
+          colorScheme={"facebook"}
+          leftIcon={<FaFacebook />}
+          onClick={handleLogin}
+        >
           <Center>
             <Text>Tiếp tục với Facebook</Text>
           </Center>

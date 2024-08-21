@@ -2,13 +2,16 @@ import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./db/connectDB.js";
 import userRoutes from "./Routes/userRoutes.js";
+import UserFacebook from "./Routes/UserFacebook.js";
+import UserGoogle from "./Routes/UserGoogle.js";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import cors from "cors";
 import passport from "passport";
 import session from "express-session";
-import authSocical from "./Routes/auth.js";
-import "./passport.js";
+
+import configLoginWithGoogle from "./controller/socical/Google.js";
+import configLoginWithFacebook from "./controller/socical/Facebook.js";
 
 dotenv.config();
 
@@ -36,21 +39,22 @@ app.use(cookieParser());
 // Cấu hình session
 app.use(
   session({
-    secret: "your_secret_key", // Replace with your own secret key
+    secret: "your-session-secret",
     resave: false,
     saveUninitialized: true,
-    cookie: {
-      secure: false, // Đặt thành true nếu sử dụng HTTPS
-      maxAge: 1000 * 60 * 60 * 24, // Thời gian sống của cookie (24 giờ)
-    },
+    cookie: { secure: false }, // Đặt thành `true` nếu sử dụng HTTPS
   })
 );
 
 app.use(passport.initialize());
 app.use(passport.session());
+configLoginWithGoogle();
+configLoginWithFacebook();
 
 app.use("/api/users", userRoutes);
-app.use("/", authSocical);
+
+app.use("/", UserFacebook);
+app.use("/", UserGoogle);
 
 app.listen(PORT, () =>
   console.log(`Server listening on http://localhost:${PORT}`)

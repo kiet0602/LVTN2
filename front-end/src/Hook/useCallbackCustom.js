@@ -3,7 +3,7 @@ import { useCallback } from "react";
 const useSignInSocical = () => {
   const handleGoogleSignIn = useCallback(() => {
     // Redirect to Google Authentication
-    window.location.href = "http://localhost:5000/auth/google";
+    window.location.href = "http://localhost:5000/auth/google/callback";
   }, []);
 
   const handleFacebookSignIn = useCallback(() => {

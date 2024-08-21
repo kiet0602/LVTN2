@@ -30,6 +30,10 @@ const userSchema = new Schema({
       default: "",
     },
   },
+  type: {
+    type: String,
+    defaultValue: "LOCAL",
+  },
   phoneNumber: {
     type: String,
     required: false,
